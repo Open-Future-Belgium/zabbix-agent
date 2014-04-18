@@ -17,8 +17,8 @@ zbx_agent_Debug: 1                                      # Debug Level (0 = no de
 zbx_agent_SourceIp:                                     # Source IP address for outgoing connections.
 zbx_agent_Remote: 0                                     # Enable remote commands ( 0=disabled, 1=enabled)
 zbx_agent_LogRemote: 0                                  # Log Remote Commands ( Enable logging of executed commands )
-zbx_server_Passive: "192.168.100.9"                     # Passive Server Checks
-zbx_agent_ServerActive: "192.168.100.9"                 # Active Server Checks
+zbx_server_Passive: "192.168.1.1"                     # Passive Server Checks
+zbx_agent_ServerActive: "192.168.1.1"                 # Active Server Checks
 zbx_agent_Port: 10050                                   # Zabbix Agent Listen Port (if changed also alter tasks/iptables.yml
 zbx_agent_ListenIp:                                     # Agent Listen Ip
 zbx_agent_StartAgents: 3                                # Number of Pre-Forked Instances of zabbix_agentd

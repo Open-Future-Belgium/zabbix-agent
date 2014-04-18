@@ -33,8 +33,8 @@ zbx_agent_Debug: 1
 zbx_agent_SourceIp:
 zbx_agent_Remote: 0
 zbx_agent_LogRemote: 0
-zbx_server_Passive: "192.168.100.9"
-zbx_agent_ServerActive: "192.168.100.9"
+zbx_server_Passive: "192.168.1.1"
+zbx_agent_ServerActive: "192.168.1.1"
 zbx_agent_Port: 10050
 zbx_agent_ListenIp:
 zbx_agent_StartAgents: 3
