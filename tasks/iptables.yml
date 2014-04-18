@@ -1,0 +1,15 @@
+---
+# Iptables for zabbix-client
+
+- name: Open the IPTables port for the Zabbix-Client
+  lineinfile: dest=/etc/sysconfig/iptables
+             regexp="^-A INPUT -p {{item.protocol}} -m {{item.protocol}} --dport {{item.port}} -j ACCEPT$"
+             line="-A INPUT -p {{item.protocol}} -m {{item.protocol}} --dport {{item.port}} -j ACCEPT"
+             insertafter="^:OUTPUT ACCEPT \[\d*:\d*\]$"
+  with_items:
+   - { protocol: tcp, port: 10050 }
+  notify:
+   - restart iptables
+  tags:
+   - iptables
+

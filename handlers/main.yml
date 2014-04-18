@@ -1,0 +1,9 @@
+---
+# handlers file for Zabbix Agent
+- name: restart the zabbix-agent
+  service: name=zabbix-agent state=restarted
+
+- name: restart iptables
+  service: name=iptables state=restarted
+  tags:
+    -iptables

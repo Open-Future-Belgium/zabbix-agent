@@ -1,0 +1,21 @@
+---
+# This playbook will install the zabbix agent
+
+- name: Install Zabbix Repository
+  yum: name={{zbx_repo}} state=present
+  when: zbx_repo_enabled == 1
+
+- name: install zabbix agent packages
+  yum: name={{ item }} state=present
+  with_items:
+    - zabbix-agent-{{ zbx_agent_Version }}
+
+- name: Install Zabbix Agent Config File
+  template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644 backup=yes
+
+- name: Ensure Zabbix Server is running
+  service: name=zabbix-agent state=started enabled=yes
+  notify:
+    - restart zabbix-agent
+
+- include: iptables.yml
