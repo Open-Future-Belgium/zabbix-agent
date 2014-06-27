@@ -1,5 +1,7 @@
 ---
 # This playbook will install the zabbix agent
+- name: Install Policy Coreutils package
+  yum: name=policycoreutils state=present
 
 - name: Install Zabbix Repository
   yum: name={{zbx_repo}} state=present
@@ -25,6 +27,9 @@
     - restart zabbix-agent
 
 - include: iptables.yml
+
+- name: Configure SELinux Policy zabbix
+  command: setsebool -P zabbix_can_network on
 
 - name: Install python and pip
   yum: name={{item}} state=present
