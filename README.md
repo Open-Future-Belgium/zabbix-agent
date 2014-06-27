@@ -9,6 +9,10 @@ Requirements
 
 Centos 6.5 or Rhel 6.5
 
+Version
+-------
+v1.0 27/6/2014
+
 Role Variables
 --------------
 
