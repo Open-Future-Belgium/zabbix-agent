@@ -5,6 +5,9 @@
   yum: name={{zbx_repo}} state=present
   when: zbx_repo_enabled == 1
 
+- name: Install Epel Repository
+  yum: name={{epel_repo}} state=present
+
 - name: install zabbix agent packages
   yum: name={{ item }} state=present
   with_items:
@@ -13,9 +16,25 @@
 - name: Install Zabbix Agent Config File
   template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644 backup=yes
 
+- name: Install Python Script to add Client to server
+  template: src=zabbix_api_hostadd.j2 dest=/tmp/zabbix_api_hostadd.py
+
 - name: Ensure Zabbix Server is running
   service: name=zabbix-agent state=started enabled=yes
   notify:
     - restart zabbix-agent
 
 - include: iptables.yml
+
+- name: Install python and pip
+  yum: name={{item}} state=present
+  with_items:
+    - python
+    - python-pip
+
+- name: Install pyzabbix with pip
+  command: pip install pyzabbix
+
+- name: Add the host to the Zabbix Server
+  command: python /tmp/zabbix_api_hostadd.py
+

@@ -1,0 +1,47 @@
+# {{ ansible_managed }}
+### Add a  host to zabbix ###
+
+from pyzabbix import ZabbixAPI
+
+
+# The IP Address of the Zabbix Server
+ZABBIX_SERVER = 'http://{{zbx_server_Passive}}/zabbix'
+{% if zbx_agent_HostName %}
+host_name='{{zbx_agent_HostName}}'
+{% else %}
+host_name='{{ansible_hostname}}'
+{% endif %}
+ip='{{zbx_server_Passive}}'
+group='{{zbx_agent_Group}}'
+template='{{zbx_agent_Template}}'
+port=10050
+login='Admin'
+password='zabbix'
+
+zapi = ZabbixAPI(ZABBIX_SERVER)
+
+# Login to the Zabbix API
+zapi.login(login, password)
+
+group_id = zapi.hostgroup.getobjects(name=group)[0]['groupid']
+template_id = zapi.template.getobjects(name=template)[0]['templateid']
+
+print(group_id)
+print(template_id)
+
+zapi.host.create (
+    {
+        "host": host_name,
+        "interfaces":[{
+            "type":1,
+                "dns":"",
+                "main":1,
+                "ip": ip,
+                "port": port,
+                "useip": 1,
+        }],
+        "groups": [{ "groupid": group_id }],
+        "templates": [{ "templateid": template_id }],
+    })
+
+print('Host Added')

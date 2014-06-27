@@ -2,11 +2,12 @@ Zabbix Client
 =============
 
 This play will install the zabbix Agent on your clients
+The Client will also be added into the Zabbix server with the correct template and group 
 
 Requirements
 ------------
 
-Centos 6x or Rhel 6x
+Centos 6.5 or Rhel 6.5
 
 Role Variables
 --------------
@@ -15,36 +16,40 @@ All variables are set in default\main.yml
 
 ```yaml
 
-# Zabbix Repository
-zbx_repo_enabled: 1
+# Please adjust these parameters to your own needs
+zbx_repo_enabled: 1                                     # Put 0 to use your own local repo
+zbx_agent_Version: "2.2.3"                              # Desired version of the client
+zbx_agent_HostName:                                     # If not set hostname from machine will be taken.
+zbx_server_Passive: "192.168.140.12"                    # Passive Server Checks
+zbx_agent_ServerActive: "192.168.140.12"                # Active Server Checks
+zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where host has to be added
+zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
+
+# Zabbix Repository & Epel repos
 zbx_repo: "http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm"
+epel_repo: "http://epel.mirror.nucleus.be/6/i386/epel-release-6-8.noarch.rpm"
 
-# defaults file for Zabbix-Agent
 
-# Zabbix Client Version
-zbx_agent_Version: "2.2.2"
 
 # General Zabbix Agent Parameters
 
-zbx_agent_Pid: "/var/run/zabbix/zabbix_agentd.pid"
-zbx_agent_Log: "/var/log/zabbix/zabbix_agentd.log"
-zbx_agent_LogSize: 0
-zbx_agent_Debug: 1
-zbx_agent_SourceIp:
-zbx_agent_Remote: 0
-zbx_agent_LogRemote: 0
-zbx_server_Passive: "192.168.1.1"
-zbx_agent_ServerActive: "192.168.1.1"
-zbx_agent_Port: 10050
-zbx_agent_ListenIp:
-zbx_agent_StartAgents: 3
-zbx_agent_HostName:
-zbx_agent_HostMeta:
-zbx_agent_HostMetaItem:
-zbx_agent_RefreshActiveChecks: 120
-zbx_agent_Buffer: 5
-zbx_agent_BufferSize: 100
-zbx_agent_MaxLinesSecond: 100 
+zbx_agent_Pid: "/var/run/zabbix/zabbix_agentd.pid"      # Location of Agent PID File
+zbx_agent_Log: "/var/log/zabbix/zabbix_agentd.log"      # Location of Agent Log File
+zbx_agent_LogSize: 0                                    # Log File Size In MB ( 0 = disabled Log Rotation )
+zbx_agent_Debug: 1                                      # Debug Level (0 = no debug, 1=critical, 2=error info, 3=warnings, 4=debug )
+zbx_agent_SourceIp:                                     # Source IP address for outgoing connections.
+zbx_agent_Remote: 0                                     # Enable remote commands ( 0=disabled, 1=enabled)
+zbx_agent_LogRemote: 0                                  # Log Remote Commands ( Enable logging of executed commands )
+zbx_agent_Port: 10050                                   # Zabbix Agent Listen Port (if changed also alter tasks/iptables.yml
+zbx_agent_ListenIp:                                     # Agent Listen Ip
+zbx_agent_StartAgents: 3                                # Number of Pre-Forked Instances of zabbix_agentd
+zbx_agent_HostName:                                     # Put the hostname if not filled in name of the machine is used
+zbx_agent_HostMeta:                                     # Optional parameter that defines host metadata.
+zbx_agent_HostMetaItem:                                 # Optional parameter that defines an item used for getting host metadata
+zbx_agent_RefreshActiveChecks: 120                      # How often list of active checks is refreshed, in seconds.
+zbx_agent_Buffer: 5                                     # Do not keep data longer then N seconds in buffer.
+zbx_agent_BufferSize: 100                               # Maximum number of values in a memory buffer
+zbx_agent_MaxLinesSecond: 100                           # Maximum number of new lines the agent will send per second to Zabbix Server
 
 # Advanced Zabbix Agent Parameters
 
@@ -65,13 +70,12 @@ zbx_agent_Modules: []
 Dependencies
 ------------
 
-No other roles are needed.
+Centos 6.5 or Rhel 6.5 are needed only if Selinux is an issue as in the latest update of SeLinux a new Zabbix policy is added.
 
 Todo
 ----
 
 * Make the module also workable for Debian 
-* Let is automatic register on the zabbix server
 
 
 License
