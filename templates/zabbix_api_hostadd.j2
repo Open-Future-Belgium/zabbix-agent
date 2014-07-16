@@ -5,18 +5,18 @@ from pyzabbix import ZabbixAPI
 
 
 # The IP Address of the Zabbix Server
-ZABBIX_SERVER = 'http://{{zbx_server_Passive}}/zabbix'
+ZABBIX_SERVER = 'http://{{zbx_server_Passive}}'
 {% if zbx_agent_HostName %}
 host_name='{{zbx_agent_HostName}}'
 {% else %}
 host_name='{{ansible_hostname}}'
 {% endif %}
-ip='{{zbx_server_Passive}}'
+ip='{{api_host_ip}}'
 group='{{zbx_agent_Group}}'
 template='{{zbx_agent_Template}}'
 port=10050
-login='Admin'
-password='zabbix'
+login='{{api_admin}}'
+password='{{api_password}}'
 
 zapi = ZabbixAPI(ZABBIX_SERVER)
 
