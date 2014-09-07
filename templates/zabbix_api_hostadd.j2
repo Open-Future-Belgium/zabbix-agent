@@ -11,7 +11,7 @@ host_name='{{zbx_agent_HostName}}'
 {% else %}
 host_name='{{ansible_hostname}}'
 {% endif %}
-ip='{{api_host_ip}}'
+ip='{{ ansible_eth0["ipv4"]["address"] }}'
 group='{{zbx_agent_Group}}'
 template='{{zbx_agent_Template}}'
 port=10050

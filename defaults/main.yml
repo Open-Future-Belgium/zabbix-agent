@@ -9,7 +9,7 @@ zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where
 zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
 
 # API
-api_host_ip: "192.168.140.12"
+# api_host_ip: "192.168.140.12"
 api_admin: "Admin"
 api_password: "zabbix"
 

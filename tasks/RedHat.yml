@@ -1,5 +1,8 @@
 ---
 # This playbook will install the zabbix agent
+- name: Install Libselinux-python
+  yum: name=libselinux-python state=present
+
 - name: Install Policy Coreutils package
   yum: name=policycoreutils state=present
 
