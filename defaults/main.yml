@@ -1,15 +1,14 @@
 ---
 # Please adjust these parameters to your own needs
 zbx_repo_enabled: 1                                     # Put 0 to use your own local repo
-zbx_agent_Version: "2.2.4"                              # Desired version of the client
+zbx_agent_Version: "2.2.5"                              # Desired version of the client
 zbx_agent_HostName:                                     # If not set hostname from machine will be taken.
-zbx_server_Passive: "192.168.140.12"                    # Passive Server Checks
-zbx_agent_ServerActive: "192.168.140.12"                # Active Server Checks
+zbx_server_Passive: "192.168.10.102"                    # Passive Server Checks
+zbx_agent_ServerActive: "192.168.10.102"                # Active Server Checks
 zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where host has to be added
 zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
 
 # API
-# api_host_ip: "192.168.140.12"
 api_admin: "Admin"
 api_password: "zabbix"
 
