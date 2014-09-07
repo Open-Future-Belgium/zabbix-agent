@@ -19,6 +19,7 @@ Role Variables
 All variables are set in default\main.yml
 
 ```yaml
+
 ---
 # Please adjust these parameters to your own needs
 zbx_repo_enabled: 1                                     # Put 0 to use your own
@@ -103,6 +104,7 @@ zbx_agent_LoadModulePath:                               # Add path of the
 loadable modules
 zbx_agent_Modules: []                                   # Add one or more lines
 with modules module.so
+```
 
 Dependencies
 ------------
