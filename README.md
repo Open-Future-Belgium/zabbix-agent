@@ -2,7 +2,7 @@ Zabbix Client
 =============
 
 This play will install the zabbix Agent on your clients
-The Client will also be added into the Zabbix server with the correct template and group 
+The Client will also be added into the Zabbix server with the correct template and group
 
 Requirements
 ------------
@@ -11,7 +11,7 @@ Centos 6.5 or Rhel 6.5
 
 Version
 -------
-7/8/2014
+7/9/2014
 
 Role Variables
 --------------
@@ -59,7 +59,7 @@ zbx_agent_MaxLinesSecond: 100                           # Maximum number of new 
 
 zbx_agent_Timeout: 3
 zbx_agent_AllowRoot: 0
-zbx_agent_Include: 
+zbx_agent_Include:
                   - "/etc/zabbix/zabbix_agentd.d/"
 
 
@@ -79,7 +79,7 @@ Centos 6.5 or Rhel 6.5 are needed only if Selinux is an issue as in the latest u
 Todo
 ----
 
-* Make the module also workable for Debian 
+* Make the module also workable for Debian
 
 
 License
