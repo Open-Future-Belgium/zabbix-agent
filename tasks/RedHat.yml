@@ -1,17 +1,26 @@
 ---
 # This playbook will install the zabbix agent
-- name: Install Libselinux-python
-  yum: name=libselinux-python state=present
-
 - name: Install Policy Coreutils package
   yum: name=policycoreutils state=present
 
-- name: Install Zabbix Repository
-  yum: name={{zbx_repo}} state=present
-  when: zbx_repo_enabled == 1
+- name: Install Libselinux-python
+  yum: name=libselinux-python state=present
 
-- name: Install Epel Repository
-  yum: name={{epel_repo}} state=present
+- name: Install Zabbix Repository for RHEL 6
+  yum: name={{zbx_repo6}} state=present
+  when: zbx_repo_enabled == 1 and ansible_distribution_major_version == "6"
+
+- name: Install Zabbix Repository for RHEL 7
+  yum: name={{zbx_repo7}} state=present
+  when: zbx_repo_enabled == 1 and ansible_distribution_major_version == "7"
+
+- name: Install Epel Repository for RHEL 6
+  yum: name={{epel_repo6}} state=present
+  when: ansible_distribution_major_version == "6"
+
+- name: Install Epel Repository for RHEL 7
+  yum: name={{epel_repo7}} state=present
+  when: ansible_distribution_major_version == "7"
 
 - name: install zabbix agent packages
   yum: name={{ item }} state=present
@@ -24,15 +33,29 @@
 - name: Install Python Script to add Client to server
   template: src=zabbix_api_hostadd.j2 dest=/tmp/zabbix_api_hostadd.py
 
-- name: Ensure Zabbix Server is running
+- name: Ensure Zabbix Agent is running
   service: name=zabbix-agent state=started enabled=yes
   notify:
     - restart zabbix-agent
 
 - include: iptables.yml
+  when: ansible_distribution_major_version == "6"
+
+- name: Open the Firewalld port 10050/tcp on Zabbix-server
+  firewalld: port=10050/tcp permanent=true state=enabled
+  when: ansible_distribution_major_version == '7'
+
+- name: Open the Firewalld port 10050/udp on Zabbix-server
+  firewalld: port=10050/udp permanent=true state=enabled
+  when: ansible_distribution_major_version == '7'
+
+- name: Reload firewalld config
+  command: firewall-cmd --reload
+  when: ansible_distribution_major_version == '7'
+
 
 - name: Configure SELinux Policy zabbix
-  command: setsebool -P zabbix_can_network on
+  seboolean: name=zabbix_can_network state=yes persistent=yes
 
 - name: Install python and pip
   yum: name={{item}} state=present
@@ -45,4 +68,3 @@
 
 - name: Add the host to the Zabbix Server
   command: python /tmp/zabbix_api_hostadd.py
-
