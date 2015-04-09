@@ -24,14 +24,16 @@ All variables are set in default\main.yml
 zbx_repo_enabled: 1                                     # Put 0 to use your own local repo
 zbx_agent_Version: "2.4.4"                              # Desired version of the client
 zbx_agent_HostName:                                     # If not set hostname from machine will be taken.
-zbx_server_Passive: "192.168.140.12"                    # Passive Server Checks
-zbx_agent_ServerActive: "192.168.140.12"                # Active Server Checks
+zbx_server_Passive: "192.168.1.1"                       # Passive Server Checks
+zbx_agent_ServerActive: "192.168.1.1"                   # Active Server Checks
 zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where host has to be added
 zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
 
 # Zabbix Repository & Epel repos
-zbx_repo: "http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm"
-epel_repo: "http://epel.mirror.nucleus.be/6/i386/epel-release-6-8.noarch.rpm"
+zbx_repo6: "http://repo.zabbix.com/zabbix/2.4/rhel/6/x86_64/zabbix-release-2.4-1.el6.noarch.rpm"
+zbx_repo7: "http://repo.zabbix.com/zabbix/2.4/rhel/7/x86_64/zabbix-release-2.4-1.el7.noarch.rpm"
+epel_repo6: "http://fedora.cu.be/epel/6/i386/epel-release-6-8.noarch.rpm"
+epel_repo7: "http://epel.mirror.nucleus.be/7/x86_64/e/epel-release-7-5.noarch.rpm"
 
 
 
@@ -74,7 +76,7 @@ zbx_agent_Modules: []
 Dependencies
 ------------
 
-Centos 6.5 or Rhel 6.5 are needed only if Selinux is an issue as in the latest update of SeLinux a new Zabbix policy is added.
+Centos/RHEL 6.5 or 7 is needed
 
 Todo
 ----
