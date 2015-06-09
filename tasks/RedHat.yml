@@ -53,18 +53,27 @@
   command: firewall-cmd --reload
   when: ansible_distribution_major_version == '7'
 
-
 - name: Configure SELinux Policy zabbix
   seboolean: name=zabbix_can_network state=yes persistent=yes
 
-- name: Install python and pip
-  yum: name={{item}} state=present
-  with_items:
-    - python
-    - python-pip
-
-- name: Install pyzabbix with pip
-  command: pip install pyzabbix
-
-- name: Add the host to the Zabbix Server
-  command: python /tmp/zabbix_api_hostadd.py
+- name: Create a new host or update an existing host's info
+  local_action:
+    module: zabbix_host
+    server_url: "http://10.5.10.248/api_jsonrpc.php"
+    login_user: Administrator
+    login_password: zabbix
+    host_name: "{{ ansible_hostname }}"
+    host_groups:
+      - Linux servers
+      - Seco Belgium
+    link_templates:
+      - Template OS Linux
+    status: enabled
+    state: present
+    interfaces:
+      - type: 1
+        main: 1
+        useip: 1
+        ip: "{{ ansible_default_ipv4.address }}"
+        dns: ""
+        port: 10050
