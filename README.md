@@ -29,6 +29,18 @@ zbx_agent_ServerActive: "192.168.1.1"                   # Active Server Checks
 zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where host has to be added
 zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
 
+
+# API
+server_url: "http://192.168.1.1/api_jsonrpc.php"        # Add the url to the API
+login_user: "Administrator"                             # Login for the user with API rights
+login_password: "zabbix"                                # Password for the API user
+host_groups:                                            # List of host groups the host should belong to start each group with -
+          - "Linux servers"
+link_templates:                                         # A list of templates that need to be linked to the host
+          - "Template OS Linux"
+status: "enabled"                                       # Status of the host enabled or disabled
+state: "present"
+
 # Zabbix Repository & Epel repos
 zbx_repo6: "http://repo.zabbix.com/zabbix/2.4/rhel/6/x86_64/zabbix-release-2.4-1.el6.noarch.rpm"
 zbx_repo7: "http://repo.zabbix.com/zabbix/2.4/rhel/7/x86_64/zabbix-release-2.4-1.el7.noarch.rpm"
