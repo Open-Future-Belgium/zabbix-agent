@@ -11,7 +11,7 @@ Centos-RHEL 6.5/7
 
 Version
 -------
-v1.1 9/4/2015
+v2 19/6/2015
 
 Role Variables
 --------------

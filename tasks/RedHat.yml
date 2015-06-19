@@ -59,17 +59,14 @@
 - name: Create a new host or update an existing host's info
   local_action:
     module: zabbix_host
-    server_url: "http://10.5.10.248/api_jsonrpc.php"
-    login_user: Administrator
-    login_password: zabbix
+    server_url: "{{ server_url }}"
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
     host_name: "{{ ansible_hostname }}"
-    host_groups:
-      - Linux servers
-      - Seco Belgium
-    link_templates:
-      - Template OS Linux
-    status: enabled
-    state: present
+    host_groups: "{{ host_groups }}"
+    link_templates: "{{ link_templates }}"
+    status: "{{ status }}"
+    state: "{{ state }}"
     interfaces:
       - type: 1
         main: 1
