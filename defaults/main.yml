@@ -9,12 +9,11 @@ zbx_agent_Group: "Discovered hosts"                     # Zabbix hostgroup where
 zbx_agent_Template: "Template OS Linux"                 # Zabbix template to link with the host
 
 # API
-server_url: "http://10.5.10.248/api_jsonrpc.php"        # Add the url to the API
+server_url: "http://192.168.1.1/api_jsonrpc.php"        # Add the url to the API
 login_user: "Administrator"                             # Login for the user with API rights
 login_password: "zabbix"                                # Password for the API user
 host_groups:                                            # List of host groups the host should belong to start each group with -
           - "Linux servers"
-          - "Seco Belgium"
 link_templates:                                         # A list of templates that need to be linked to the host
           - "Template OS Linux"
 status: "enabled"                                       # Status of the host enabled or disabled
