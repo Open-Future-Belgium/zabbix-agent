@@ -291,7 +291,7 @@ UnsafeUserParameters={{zbx_agent_UnsafeUserParam}}
 # Mandatory: no
 # Default:
 {% for line in zbx_agent_UserParameter %}
-Include={{line}}
+{{line}}
 {% else %}
 # UserParameter=
 {% endfor %}

@@ -6,14 +6,14 @@
 - name: Install Libselinux-python
   yum: name=libselinux-python state=present
 
+- name: Install libsemanage-python
+  yum: name=libsemanage-python state=present
+
 - name: Install Zabbix Repository
   yum: name={{zbx_repo}} state=present
 
-- name: Install Epel Repository
-  yum: name={{epel_repo}} state=present
-
 - name: install zabbix agent packages
-  yum: name={{ item }} state=present
+  yum: name={{ item }} state=present update_cache=yes
   with_items:
     - zabbix-agent-{{ zbx_agent_Version }}
 
@@ -37,7 +37,7 @@
   when: ansible_distribution_major_version == '7'
 
 - name: Reload firewalld config
-  command: firewall-cmd --reload
+  service: name=firewalld state=reloaded
   when: ansible_distribution_major_version == '7'
 
 - name: Configure SELinux Policy zabbix
@@ -61,3 +61,5 @@
         ip: "{{ ansible_default_ipv4.address }}"
         dns: ""
         port: 10050
+    proxy: ""
+
