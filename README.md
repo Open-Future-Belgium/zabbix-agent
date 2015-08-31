@@ -40,9 +40,8 @@ status: "enabled"                                       # Status of the host ena
 state: "present"
 
 
-# Zabbix Repository & Epel repos
+# Zabbix Repository
 zbx_repo: "http://repo.zabbix.com/zabbix/2.4/rhel/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/zabbix-release-2.4-1.el{{ ansible_distribution_major_version }}.noarch.rpm"
-epel_repo: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
 
 
 
