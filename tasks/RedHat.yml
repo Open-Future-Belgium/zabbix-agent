@@ -6,21 +6,11 @@
 - name: Install Libselinux-python
   yum: name=libselinux-python state=present
 
-- name: Install Zabbix Repository for RHEL 6
-  yum: name={{zbx_repo6}} state=present
-  when: zbx_repo_enabled == 1 and ansible_distribution_major_version == "6"
+- name: Install Zabbix Repository
+  yum: name={{zbx_repo}} state=present
 
-- name: Install Zabbix Repository for RHEL 7
-  yum: name={{zbx_repo7}} state=present
-  when: zbx_repo_enabled == 1 and ansible_distribution_major_version == "7"
-
-- name: Install Epel Repository for RHEL 6
-  yum: name={{epel_repo6}} state=present
-  when: ansible_distribution_major_version == "6"
-
-- name: Install Epel Repository for RHEL 7
-  yum: name={{epel_repo7}} state=present
-  when: ansible_distribution_major_version == "7"
+- name: Install Epel Repository
+  yum: name={{epel_repo}} state=present
 
 - name: install zabbix agent packages
   yum: name={{ item }} state=present
@@ -29,9 +19,6 @@
 
 - name: Install Zabbix Agent Config File
   template: src=zabbix_agentd.conf.j2 dest=/etc/zabbix/zabbix_agentd.conf owner=root group=root mode=0644 backup=yes
-
-- name: Install Python Script to add Client to server
-  template: src=zabbix_api_hostadd.j2 dest=/tmp/zabbix_api_hostadd.py
 
 - name: Ensure Zabbix Agent is running
   service: name=zabbix-agent state=started enabled=yes
