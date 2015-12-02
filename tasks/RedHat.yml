@@ -40,6 +40,10 @@
   service: name=firewalld state=reloaded
   when: ansible_distribution_major_version == '7'
 
+- name: Make sure Firewalld is started
+  service: name=firewalld state=started
+  when: ansible_distribution_major_version == '7'
+
 - name: Configure SELinux Policy zabbix
   seboolean: name=zabbix_can_network state=yes persistent=yes
 
@@ -62,4 +66,4 @@
         dns: ""
         port: 10050
     proxy: ""
-
+  when: zbx_create_host == 1

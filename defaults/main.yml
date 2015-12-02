@@ -1,5 +1,6 @@
 ---
 # Please adjust these parameters to your own needs
+zbx_create_host: 1                                      # Add 0 if you don't want to create hosts in the Zabbix Server (add extra ansible modules for this to work"
 zbx_repo_enabled: 1                                     # Put 0 to use your own local repo
 zbx_agent_Version: "2.4.6"                              # Desired version of the client
 zbx_agent_HostName:                                     # If not set hostname from machine will be taken.
