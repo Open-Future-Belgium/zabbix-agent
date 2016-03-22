@@ -2,6 +2,9 @@
 # handlers file for Zabbix Agent
 - name: restart zabbix-agent
   service: name=zabbix-agent state=restarted
+  
+- name: reload firewalld
+  service: name=firewalld state=reloaded
 
 - name: restart iptables
   service: name=iptables state=restarted
