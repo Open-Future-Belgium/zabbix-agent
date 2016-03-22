@@ -33,14 +33,14 @@
 - name: Open the Firewalld port 10050/tcp on Zabbix-server
   firewalld: port=10050/tcp permanent=true state=enabled
   when: ansible_distribution_major_version == '7'
+  notify:
+    - reload firewalld
 
 - name: Open the Firewalld port 10050/udp on Zabbix-server
   firewalld: port=10050/udp permanent=true state=enabled
   when: ansible_distribution_major_version == '7'
-
-- name: Reload firewalld config
-  service: name=firewalld state=reloaded
-  when: ansible_distribution_major_version == '7'
+  notify:
+    - reload firewalld
 
 - name: Make sure Firewalld is started
   service: name=firewalld state=started
