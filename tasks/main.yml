@@ -1,4 +1,4 @@
----vim:ft=ansible:
+---
 - name: Unexpected OS
   debug: msg="OS Family {{ ansible_os_family }} is not supported" fail=yes
   when: not ansible_os_family == 'RedHat'
