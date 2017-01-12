@@ -30,21 +30,27 @@
 - include: iptables.yml
   when: ansible_distribution_major_version == "6"
 
+- name: Check to see if firewalld is enabled
+  shell: systemctl is-enabled firewalld
+  register: firewalld_enabled
+  ignore_errors: True
+  when: ansible_distribution_major_version == '7'
+
+- name: Make sure Firewalld is started
+  service: name=firewalld state=started
+  when: firewalld_enabled.stdout == "enabled"
+
 - name: Open the Firewalld port 10050/tcp on Zabbix-server
   firewalld: port=10050/tcp permanent=true state=enabled
-  when: ansible_distribution_major_version == '7'
+  when: firewalld_enabled.stdout == "enabled"
   notify:
     - reload firewalld
 
 - name: Open the Firewalld port 10050/udp on Zabbix-server
   firewalld: port=10050/udp permanent=true state=enabled
-  when: ansible_distribution_major_version == '7'
+  when: firewalld_enabled.stdout == "enabled"
   notify:
     - reload firewalld
-
-- name: Make sure Firewalld is started
-  service: name=firewalld state=started
-  when: ansible_distribution_major_version == '7'
 
 - name: Configure SELinux Policy zabbix
   seboolean: name=zabbix_can_network state=yes persistent=yes
