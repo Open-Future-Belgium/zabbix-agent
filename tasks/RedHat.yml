@@ -38,17 +38,17 @@
 
 - name: Make sure Firewalld is started
   service: name=firewalld state=started
-  when: firewalld_enabled.stdout == "enabled"
+  when: firewalld_enabled is defined and firewalld_enabled.stdout == "enabled"
 
 - name: Open the Firewalld port 10050/tcp on Zabbix-server
   firewalld: port=10050/tcp permanent=true state=enabled
-  when: firewalld_enabled.stdout == "enabled"
+  when: firewalld_enabled is defined and firewalld_enabled.stdout == "enabled"
   notify:
     - reload firewalld
 
 - name: Open the Firewalld port 10050/udp on Zabbix-server
   firewalld: port=10050/udp permanent=true state=enabled
-  when: firewalld_enabled.stdout == "enabled"
+  when: firewalld_enabled is defined and firewalld_enabled.stdout == "enabled"
   notify:
     - reload firewalld
 
